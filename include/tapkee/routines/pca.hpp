@@ -44,6 +44,7 @@ DenseVector compute_mean(RandomAccessIterator begin, RandomAccessIterator end,
 {
 	DenseVector mean = DenseVector::Zero(dimension);
 	DenseVector current_vector(dimension);
+
 	for (RandomAccessIterator iter=begin; iter!=end; ++iter)
 	{
 		callback.vector(*iter,current_vector);

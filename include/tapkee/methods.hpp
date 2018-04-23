@@ -6,6 +6,8 @@
 #ifndef TAPKEE_METHODS_H_
 #define TAPKEE_METHODS_H_
 
+#include <fstream>
+
 /* Tapkee includes */
 #include <tapkee/defines.hpp>
 #include <tapkee/utils/naming.hpp>
@@ -447,6 +449,7 @@ private:
 
 	TapkeeOutput embedPCA()
 	{
+	  
 		DenseVector mean_vector = 
 			compute_mean(begin,end,features,current_dimension);
 		DenseSymmetricMatrix centered_covariance_matrix = 
@@ -454,7 +457,7 @@ private:
 		EigendecompositionResult projection_result = 
 			eigendecomposition(p_eigen_method,p_computation_strategy,
 					LargestEigenvalues,centered_covariance_matrix,p_target_dimension);
-		tapkee::ProjectingFunction projecting_function(new tapkee::MatrixProjectionImplementation(projection_result.first,mean_vector));
+		tapkee::ProjectingFunction projecting_function(new tapkee::MatrixProjectionImplementation(projection_result.first.transpose(),mean_vector));
 		return TapkeeOutput(project(projection_result.first,mean_vector,begin,end,features,current_dimension), projecting_function);
 	}
 
